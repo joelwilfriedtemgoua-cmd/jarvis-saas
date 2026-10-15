@@ -3,3 +3,4 @@ duckduckgo-search
 streamlit
 supabase
 pillow
+openai
