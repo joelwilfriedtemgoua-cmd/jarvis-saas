@@ -1,5 +1,5 @@
-requests==2.32.3
-duckduckgo-search==6.3.0
-streamlit==1.39.0
-supabase==2.6.0
-pillow==10.4.0
+requests
+duckduckgo-search
+streamlit
+supabase
+pillow
