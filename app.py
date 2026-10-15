@@ -7,7 +7,7 @@ from duckduckgo_search import DDGS
 # =====================================================================
 # CONFIGURATION ET CLÉS DE VOTRE MEGA-CLUSTER DE CALCUL CYBER
 # =====================================================================
-SUPABASE_URL = "https://supabase.co"
+SUPABASE_URL = "https://ylcrmgzqaspdxwygjuzj.supabase.co"
 SUPABASE_KEY = "sb_secret_dtMp1osR0KWrylpB5zez5g_agh4Y17D"
 
 OPENROUTER_API_KEY = "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"
@@ -40,14 +40,16 @@ def login_form():
     if st.button("Valider la liaison"):
         try:
             if mode == "Créer un compte":
-                supabase.auth.sign_up({"email": email, "password": password})
-                st.success("Compte initié ! Connectez-vous si l'inscription automatique est active.")
+                # Syntaxe dictionnaire pour éviter le bug 404
+                supabase.auth.sign_up(credentials={"email": email, "password": password})
+                st.success("Compte initié ! Basculez sur 'Se connecter' pour accéder à l'interface.")
             else:
-                res = supabase.auth.sign_in_with_password({"email": email, "password": password})
+                # Connexion sécurisée
+                res = supabase.auth.sign_in_with_password(credentials={"email": email, "password": password})
                 st.session_state.user = res.user
                 st.rerun()
         except Exception as e:
-            st.error(f"Échec : {str(e)}")
+            st.error(f"Échec de l'authentification : {str(e)}")
 
 def charger_memoire(user_id):
     try:
